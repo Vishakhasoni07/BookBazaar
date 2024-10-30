@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOOKBAZAAR - Sell Books</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">BOOKBAZAAR</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="buy.html">Buy</a>
+            <a href="sell.html">Sell</a>
+            <a href="#">About Us</a>
+            <a href="#" onclick="showLoginForm()">Login</a>
+        </nav>
+    </header>
+
+    <div class="form-container">
+        <h2>Sell Your Book</h2>
+        <form id="sellForm">
+            <input type="text" id="bookName" placeholder="Book Name" required><br>
+            <input type="text" id="author" placeholder="Author" required><br>
+            <select id="condition" required>
+                <option value="" disabled selected>Select Condition</option>
+                <option value="Very Good">Very Good</option>
+                <option value="Good">Good</option>
+                <option value="Little Bit Poor">Little Bit Poor</option>
+            </select><br>
+            <input type="number" id="price" placeholder="Price" required><br>
+            <input type="text" id="sellerName" placeholder="Seller's Name" required><br>
+            <input type="tel" id="sellerPhone" placeholder="Seller's Phone Number" required><br>
+            <button type="submit">Submit</button>
+        </form>
+        <p id="message" style="color:green;"></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
