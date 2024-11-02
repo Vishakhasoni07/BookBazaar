@@ -178,3 +178,40 @@ footer p {
 .hidden {
     visibility: hidden;
 }
+#welcomeMsg {
+    font-size: 20px;
+    color: #FFD700; /* Gold color for visibility */
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+}
+#registerSuccess, #loginError {
+    font-size: 16px;
+    color: green; /* Change to red for errors */
+    text-align: center;
+    margin-top: 10px;
+}
+#loginError {
+    color: red; /* Error message color */
+}
+.form-container input:focus,
+.form-container select:focus {
+    border-color: #FFD700; /* Highlight with gold */
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.5); /* Subtle glow effect */
+}
+.book-card:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+    transition: all 0.2s ease; /* Smooth transition */
+}
+.logged-in {
+    display: block; /* Show elements */
+}
+
+.logged-out {
+    display: none; /* Hide elements */
+}
+footer.hidden {
+    display: none; /* Hide footer when needed */
+}
