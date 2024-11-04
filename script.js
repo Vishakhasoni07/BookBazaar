@@ -154,16 +154,16 @@ if (localStorage.getItem('isLoggedIn') === 'true') {
         document.getElementById('welcomeMsg').textContent = `Hello ${localStorage.getItem('username')}`;
     }
     // script.js
-let cart = [];
-let total = 0;
-console.log("Hello");
+// let cart = [];
+// let total = 0;
+// console.log("Hello");
 
-let add_cart_btn = document.querySelector(".add-to-cart");
-add_cart_btn.addEventListener("click", (e) => {
-    console.log("Hi");
-    console.log(e);
-    console.log("Hi");
-});
+// let add_cart_btn = document.querySelector(".add-to-cart");
+// add_cart_btn.addEventListener("click", (e) => {
+//     console.log("Hi");
+//     console.log(e);
+//     console.log("Hi");
+// });
 
 
 // function addToCart(productName, productPrice) {
@@ -203,7 +203,98 @@ add_cart_btn.addEventListener("click", (e) => {
 
 
 
-let btn = document.querySelector(".btn-event-handler");
-btn.addEventListener("click", ()=>{
-    console.log("clicked")
-})
+// let btn = document.querySelector(".btn-event-handler");
+// btn.addEventListener("click", ()=>{
+//     console.log("clicked")
+// })
+
+// script for cart
+let add_cart_btns = document.querySelectorAll('.add-to-cart');
+let books_in_cart = [];
+let books_in_buy = JSON.parse(localStorage.getItem('books'));
+let books_in_cart_ls = JSON.parse(localStorage.getItem('books_in_cart')) || [];
+for(let i=0;i<add_cart_btns.length;i++)
+{
+    
+    add_cart_btns[i].addEventListener('click', ()=>{
+        books_in_cart.push(books_in_buy[i]);
+        add_cart_btns[i].disabled = true;
+        
+        localStorage.setItem('books_in_cart', JSON.stringify(books_in_cart));
+    })
+        
+
+    
+}
+// let books_in_cart_ls = JSON.parse(localStorage.getItem('books_in_cart')) || [];
+// books_in_cart.forEach(book=>{books_in_cart_ls.push(book);
+// localStorage.setItem('books_in_cart', JSON.stringify(books_in_cart_ls));})
+
+// display books in cart
+let total_price = 0.0;
+const total_price_el = document.querySelector('#total-price');
+const products = document.querySelector('.products');
+if (products) {
+    // const books_in_cart_ls = JSON.parse(localStorage.getItem('books_in_cart')) || [];
+    
+    books_in_cart_ls.forEach(book => {
+        total_price += Number(book.price);
+        const product = document.createElement('div');
+        product.classList.add('product');
+        
+        product.innerHTML = `
+          
+            <div class="book-title">${book.title}</div>
+            <div class="book-author">by ${book.author}</div>
+            <div class="book-condition">Condition: ${book.condition}</div>
+            <div class="book-price">Price: $${book.price}</div>
+            <div class="book-seller">Seller: ${book.seller.name}</div>
+            <div class="book-phone">Contact: ${book.seller.phone}</div>
+            <div><button class="remove-from-cart">Remove</button></div>
+            
+        `;
+        products.appendChild(product);
+
+    });
+    
+    total_price_el.innerHTML = `Total : $${total_price}`;
+}
+const product_els = document.querySelectorAll('.product');
+let remove_btns = document.querySelectorAll('.remove-from-cart');
+// const books_in_cart_ls = JSON.parse(localStorage.getItem('books_in_cart')) || [];
+
+for(let i =0;i<remove_btns.length;i++)
+{
+    remove_btns[i].addEventListener('click', ()=>{
+    
+    product_els[i].innerHTML = '';
+    product_els[i].style.border = 'none';
+    // document.remove(product_els[i]);
+    let books_in_cart_ls = JSON.parse(localStorage.getItem('books_in_cart')) || [];
+    // delete books_in_cart_ls[i];
+    total_price -= Number(books_in_cart_ls[i].price);
+    total_price_el.innerHTML = `Total : $${total_price}`;
+    books_in_cart_ls.splice(i,1);
+    
+    localStorage.setItem('books_in_cart', JSON.stringify(books_in_cart_ls));
+    
+    // let total_price = 0.0;
+    // books_in_cart_ls.forEach(book => {
+    //     total_price += Number(book.price);
+    //     const product = document.createElement('div');
+    //     product.classList.add('product');
+        
+    //     product.innerHTML = `
+          
+    //         <div class="book-title">${book.title}</div>
+    //         <div class="book-author">by ${book.author}</div>
+    //         <div class="book-condition">Condition: ${book.condition}</div>
+    //         <div class="book-price">Price: $${book.price}</div>
+    //         <div class="book-seller">Seller: ${book.seller.name}</div>
+    //         <div class="book-phone">Contact: ${book.seller.phone}</div>
+    //         <div><button class="remove-from-cart">Remove</button></div>
+            
+    //     `;
+    //     products.appendChild(product);})
+    })
+}
