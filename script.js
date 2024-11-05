@@ -22,11 +22,15 @@ if (registerForm) {
                 gender,
                 education,
                 phone,
-                email
+                email,
+                
             };
-
+            
             localStorage.setItem('user', JSON.stringify(user));
-
+            const loggedIn = {
+                isLoggedIn : false,
+            };
+            localStorage.setItem('loggedIn', JSON.stringify(loggedIn) );
             document.getElementById('registerSuccess').textContent = "Registration successful!";
             document.getElementById('registerError').textContent = "";
             
@@ -42,7 +46,7 @@ if (registerForm) {
 
 // Login Form Submission
 const loginForm = document.getElementById('loginForm');
-var isloggedIn = false;
+// var isloggedIn = false;
 if (loginForm) {
     loginForm.addEventListener('submit', function(event) {
         event.preventDefault();
@@ -54,7 +58,11 @@ if (loginForm) {
 
         // Check if user exists and credentials are correct
         if (user && user.username === username && user.password === password) {
-            isloggedIn = true;
+            // isloggedIn = true;
+            let loggedIn = JSON.parse(localStorage.getItem('loggedIn'));
+            // console.log(loggedIn);
+            loggedIn.isLoggedIn = true;
+            localStorage.setItem('loggedIn', JSON.stringify(loggedIn));
             window.location.href = 'index.html'; // Redirect to the home page
             document.getElementsByClassName('hidden').classList.remove('hidden');
                 //document.getElementById('buyNav').style.display = 'inline';
@@ -62,6 +70,7 @@ if (loginForm) {
                 //window.location.href = 'index.html'; // Redirect to the home page
                 //document.getElementById('loginBtn').textContent = 'Logout';
                 //document.getElementById('welcomeMsg').textContent = `Hello ${localStorage.getItem('username')}`;
+
         } else {
             document.getElementById('loginError').textContent = "Invalid username or password!";
         }
@@ -147,9 +156,10 @@ if (booksContainer) {
 
     });
 }
-if (localStorage.getItem('isLoggedIn') === 'true') {
+if (JSON.parse(localStorage.getItem('loggedIn')).isLoggedIn === true) {
         document.getElementById('buyNav').style.display = 'inline';
         document.getElementById('sellNav').style.display = 'inline';
+        document.getElementById('cart-nav').style.display = 'inline';
         document.getElementById('loginBtn').textContent = 'Logout';
         document.getElementById('welcomeMsg').textContent = `Hello ${localStorage.getItem('username')}`;
     }
